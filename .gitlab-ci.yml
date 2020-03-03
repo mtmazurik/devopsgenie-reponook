@@ -3,4 +3,4 @@
 
 build_image:
   script:
-    - docker build -t dog-reponook-svc:dev .
+    - docker build -t devopsgenie-reponook:dev .
