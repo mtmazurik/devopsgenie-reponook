@@ -7,13 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.Logging;
-using CCA.Services.RepositoryNook.Config;
-using CCA.Services.RepositoryNook.Models;
-using CCA.Services.RepositoryNook.Services;
-using CCA.Services.RepositoryNook.HelperClasses;
+using DOG.RepoNook.Config;
+using DOG.RepoNook.Models;
+using DOG.RepoNook.Services;
+using DOG.RepoNook.HelperClasses;
 using OpenApi = Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.Hosting;
 
-namespace CCA.Services.RepositoryNook
+namespace DOG.RepoNook
 {
     public class Startup
     {
@@ -22,7 +23,7 @@ namespace CCA.Services.RepositoryNook
         private IConfigurationRoot _configuration { get; }
 
 
-        public Startup(Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILogger<Startup> logger, ILoggerFactory loggerFactory)       // ctor
+        public Startup(IWebHostEnvironment env, ILogger<Startup> logger, ILoggerFactory loggerFactory)       // ctor
         {
             var builder = new ConfigurationBuilder()        
                 .SetBasePath(env.ContentRootPath)
@@ -53,9 +54,8 @@ namespace CCA.Services.RepositoryNook
             services.AddTransient<HttpClient>();
             services.AddTransient<IJsonConfiguration, JsonConfiguration>();
             services.AddTransient<IRepositoryService, RepositoryService>();
-            services.AddTransient<IAdminService, AdminService>();
         }
-        public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IHostApplicationLifetime applicationLifetime)
         {
             app.UseMvc(routes =>
             {

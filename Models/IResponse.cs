@@ -1,4 +1,4 @@
-﻿namespace CCA.Services.RepositoryNook.Models
+﻿namespace DOG.RepoNook.Models
 {
     public interface IResponse
     {

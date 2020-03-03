@@ -6,9 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7631C5BC-B886-4703-82EF-85269AB4C4AA}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		K8s\reponook-pod.yaml = K8s\reponook-pod.yaml
+		K8s\reponook-svc.yaml = K8s\reponook-svc.yaml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCA.Services.RepositoryNook", "CCA.Services.RepositoryNook.csproj", "{540B72DB-D294-435A-9720-A011878352F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devopsgenie-reponook", "devopsgenie-reponook.csproj", "{540B72DB-D294-435A-9720-A011878352F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

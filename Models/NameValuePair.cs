@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CCA.Services.RepositoryNook.Models
+namespace DOG.RepoNook.Models
 {
     [BsonIgnoreExtraElements]
     public class NameValuePair

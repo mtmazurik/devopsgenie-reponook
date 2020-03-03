@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace CCA.Services.RepositoryNook
+namespace DOG.RepoNook
 {
     public class Program
     {

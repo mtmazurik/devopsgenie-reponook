@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CCA.Services.RepositoryNook.Exceptions;
+using DOG.RepoNook.Exceptions;
 
 
-namespace CCA.Services.RepositoryNook.Config
+namespace DOG.RepoNook.Config
 {
     public class JsonConfiguration : IJsonConfiguration
     {

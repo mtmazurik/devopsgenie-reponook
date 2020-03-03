@@ -1,4 +1,4 @@
-﻿namespace CCA.Services.RepositoryNook.Config
+﻿namespace DOG.RepoNook.Config
 {
     public interface IJsonConfiguration
     {

@@ -4,34 +4,37 @@ using System.Net;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Authorization;
-using CCA.Services.RepositoryNook.HelperClasses;
-using CCA.Services.RepositoryNook.Models;
-using CCA.Services.RepositoryNook.Services;
+using DOG.RepoNook.HelperClasses;
+using DOG.RepoNook.Models;
+using DOG.RepoNook.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using Microsoft.Extensions.Hosting;
 
-namespace CCA.Services.RepositoryNook.Controllers
+namespace DOG.RepoNook.Controllers
 {
     [Route("/admin")]
     public class AdminController : Controller
     {
         [HttpPut("kill")]   // Kills the main thread, effectively shutting down the repo-nook-svc
-        public IActionResult Kill([FromServices]IAdminService instrument)
+        public IActionResult Kill([FromServices]IHostApplicationLifetime applicationLifetime)
         {
-            return ResponseFormatter.ResponseOK(instrument.kill());
+            applicationLifetime.StopApplication();
+            return Ok("Main app thread killed.");
         }
         [HttpGet("ping")]   // ping
         public IActionResult GetPing()
         {
-            return ResponseFormatter.ResponseOK((new JProperty("Ping", "Success")));
+            return Ok("200 OK");
         }
         [HttpGet("version")]   // service version (from compiled assembly version)
-        public IActionResult GetVersion([FromServices]IAdminService instrumentation)
+        public IActionResult GetVersion()
         {
-            return ResponseFormatter.ResponseOK((new JProperty("Version", instrumentation.version())));
+            string version = typeof(Startup).Assembly.GetName().Version.ToString();
+            return Ok(version);
         }
     }
 }

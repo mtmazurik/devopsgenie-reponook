@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CCA.Services.RepositoryNook": {
+    "DOG.RepoNook": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

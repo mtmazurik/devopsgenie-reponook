@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CCA.Services.RepositoryNook.Models
+namespace DOG.RepoNook.Models
 {
     [BsonIgnoreExtraElements]
     public class Repository

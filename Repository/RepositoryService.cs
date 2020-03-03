@@ -3,18 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CCA.Services.RepositoryNook.Models;
+using DOG.RepoNook.Models;
 using MongoDB.Driver;
 using MongoDB.Bson;
-using CCA.Services.RepositoryNook.Config;
-using CCA.Services.RepositoryNook.Exceptions;
+using DOG.RepoNook.Config;
+using DOG.RepoNook.Exceptions;
 using MongoDB.Bson.Serialization;
 using System.Net;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
-namespace CCA.Services.RepositoryNook.Services
+namespace DOG.RepoNook.Services
 {
     public class RepositoryService : IRepositoryService
     {
@@ -92,11 +92,11 @@ namespace CCA.Services.RepositoryNook.Services
             }
             return foundObject;
         }
-        public List<Repository> ReadAll(string repository, string collection)           // READ ALL repository object (mongo documents) - NOT AN ASYNC CALL
+        public async Task<List<Repository>> ReadAll(string repository, string collection)           // READ ALL repository object (mongo documents) - NOT AN ASYNC CALL
         {
             IMongoCollection<Repository> repositoryCollection = ConnectToCollection(repository, collection);
 
-            var found = repositoryCollection.AsQueryable().ToList();
+            var found = await repositoryCollection.AsQueryable().ToListAsync();
 
             if (found is null)
             {
@@ -104,11 +104,11 @@ namespace CCA.Services.RepositoryNook.Services
             }
             return found;
         }
-        public List<Repository> QueryByKey(string repository, string collection, string key)
+        public async Task<List<Repository>> QueryByKey(string repository, string collection, string key)
         {
             IMongoCollection<Repository> repositoryCollection = ConnectToCollection(repository, collection);
 
-            var found = repositoryCollection.Find(r => r.key == key).ToList();          // FIND keyName (req) and keyValue (req) - NOT AN ASYNC CALL
+            var found = await repositoryCollection.Find(r => r.key == key).ToListAsync();          // FIND keyName (req) and keyValue (req) - NOT AN ASYNC CALL
 
             if (found is null)
             {
@@ -116,13 +116,13 @@ namespace CCA.Services.RepositoryNook.Services
             }
             return found;
         }
-        public List<Repository> QueryByTag(string repository, string collection, string tag)
+        public async Task<List<Repository>> QueryByTag(string repository, string collection, string tag)
         {
             IMongoCollection<Repository> repositoryCollection = ConnectToCollection(repository, collection);
 
             var builder = Builders<Repository>.Filter.AnyEq("tags", tag);
 
-            var found = repositoryCollection.Find(builder).ToList();
+            var found = await repositoryCollection.Find(builder).ToListAsync();
 
             if (found is null)
             {
@@ -150,7 +150,7 @@ namespace CCA.Services.RepositoryNook.Services
 
             try
             {
-                await repositoryCollection.ReplaceOneAsync(filter, repoObject, new UpdateOptions { IsUpsert = true });
+                await repositoryCollection.ReplaceOneAsync(filter, repoObject, new ReplaceOptions { IsUpsert = true });
             }
             catch
             {
@@ -184,7 +184,7 @@ namespace CCA.Services.RepositoryNook.Services
                 schema = JSchema.Parse(ReadInStringFromWebUri(schemaUri));
                 jobject = JObject.Parse(data);
             }
-            catch (Exception exc)
+            catch 
             {
                 throw new RepoSvcValidationError("Error parsing schema or data JSON, please check schema URI and file, and data for valid JSON, and retry.");
             }
@@ -225,19 +225,26 @@ namespace CCA.Services.RepositoryNook.Services
             return database;
         }
 
-        [Obsolete]
         private void CreateRepositoryTextIndices(IMongoCollection<Repository> collection)   // indempotent; a no-op if index already exists.
         {
             // index: key (primary) 
-            var textKey = Builders<Repository>.IndexKeys.Text(t => t.key);             // the key value, is collections text search field, and is highly queryable
-            var options = new CreateIndexOptions() { Name = "IX_key}" };               // (name:value pairs string), NOT unique
-            collection.Indexes.CreateOne(textKey, options);                            // does not create it, if exists
+            var key = Builders<Repository>.IndexKeys.Text(t => t.key);             // the key value, is collections text search field, and is highly queryable
+            var options = new CreateIndexOptions
+            { 
+                Name = "IX_key" 
+            };
+            var keyModel = new CreateIndexModel<Repository>(key, options); 
+            collection.Indexes.CreateOne(keyModel);                            // does not create it, if exists
 
 
             // index: for tags
-            var tagIndices = Builders<Repository>.IndexKeys.Ascending(t => t.tags);    // the tags array (name:value pairs strings)
-            var tags_ix_options = new CreateIndexOptions() { Name = "IX_tags}" };
-            collection.Indexes.CreateOne(tagIndices, tags_ix_options);
+            var tag = Builders<Repository>.IndexKeys.Ascending(t => t.tags);    // the tags array (name:value pairs strings)
+            var tag_options = new CreateIndexOptions 
+            { 
+                Name = "IX_tags" 
+            };
+            var tagModel = new CreateIndexModel<Repository>(tag, tag_options);
+            collection.Indexes.CreateOne(tagModel);
         }
 
         private bool CheckIfCollectionExists(IMongoDatabase database, string collectionName)
@@ -261,7 +268,7 @@ namespace CCA.Services.RepositoryNook.Services
                 }
                 return schemaBody;
             }
-            catch (Exception exc)
+            catch
             {
                 throw new RepoSvcValidationError("error: reading in string from Uri. Check URI string and/or file existence, and retry.");
             }

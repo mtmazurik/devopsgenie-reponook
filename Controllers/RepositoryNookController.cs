@@ -4,9 +4,9 @@ using System.Net;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Authorization;
-using CCA.Services.RepositoryNook.HelperClasses;
-using CCA.Services.RepositoryNook.Models;
-using CCA.Services.RepositoryNook.Services;
+using DOG.RepoNook.HelperClasses;
+using DOG.RepoNook.Models;
+using DOG.RepoNook.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using System.Collections.Generic;
 
-namespace CCA.Services.RepositoryNook.Controllers
+namespace DOG.RepoNook.Controllers
 {
     [Route("/")]
     public class RepositoryNookController : Controller
@@ -25,11 +25,11 @@ namespace CCA.Services.RepositoryNook.Controllers
             try
             {
                 List<string> found = await repositoryService.GetDatabases();
-                return ResponseFormatter.ResponseOK(found);
+                return Ok(found);
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Get databases failed.");
+                return BadRequest("Get databases failed. " + exc.Message);
             }
         }
         [HttpGet("{database}")]   // GET all collections
@@ -38,11 +38,11 @@ namespace CCA.Services.RepositoryNook.Controllers
             try
             {
                 List<string> found = await repositoryService.GetCollections(database);
-                return ResponseFormatter.ResponseOK(found);
+                return Ok(found);
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Get collections failed.");
+                return BadRequest("Get collections failed. " + exc.Message);
             }
         }
         [HttpPost("{database}/{collection}")]  // POST (C)reate Repository object - CRUD operation: Create
@@ -50,11 +50,11 @@ namespace CCA.Services.RepositoryNook.Controllers
         {
             try
             {
-                return ResponseFormatter.ResponseOK(await repositoryService.Create(database, collection, repoObject), "Created");
+                return Ok("Created." + await repositoryService.Create(database, collection, repoObject));
             }
             catch(Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Create failed.");
+                return BadRequest("Create failed." + exc.ToString());
             }
 
         }
@@ -65,11 +65,11 @@ namespace CCA.Services.RepositoryNook.Controllers
             {
                 Repository found = await repositoryService.Read(_id, database, collection);
 
-                return ResponseFormatter.ResponseOK(found);
+                return Ok(found);
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Read failed.");
+                return BadRequest("Read failed." + exc.ToString());
             }
 
         }
@@ -78,13 +78,13 @@ namespace CCA.Services.RepositoryNook.Controllers
         {
             try
             {
-                List<Repository> found = repositoryService.ReadAll(database, collection);
+                List<Repository> found = await repositoryService.ReadAll(database, collection);
 
-                return ResponseFormatter.ResponseOK(found);
+                return Ok(found);
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Read All failed.");
+                return BadRequest("Read All failed." + exc.ToString());
             }
 
         }
@@ -94,18 +94,18 @@ namespace CCA.Services.RepositoryNook.Controllers
         {
             try
             {
-                List<Repository> found = repositoryService.QueryByKey(database, collection, key);
+                List<Repository> found = await repositoryService.QueryByKey(database, collection, key);
 
                 if( found.Count == 0)
                 {
-                    return ResponseFormatter.ResponseNotFound(string.Format("check query string argument key={0}",key));
+                    return NotFound(string.Format("check query string argument key={0}",key));
                 }
 
-                return ResponseFormatter.ResponseOK(found);
+                return Ok(found);
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Query exception.");
+                return BadRequest("Query exception." + exc.ToString());
             }
 
         }
@@ -114,18 +114,18 @@ namespace CCA.Services.RepositoryNook.Controllers
         {
             try
             {
-                List<Repository> found = repositoryService.QueryByTag(database, collection, tag);
+                List<Repository> found = await repositoryService.QueryByTag(database, collection, tag);
 
                 if (found.Count == 0)
                 {
-                    return ResponseFormatter.ResponseNotFound(string.Format("check query string argument tag={0}", tag));
+                    return NotFound(string.Format("check query string argument tag={0}", tag));
                 }
 
-                return ResponseFormatter.ResponseOK(found);
+                return Ok(found);
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Query failed.");
+                return BadRequest("Query failed." + exc.ToString());
             }
 
         }
@@ -138,17 +138,17 @@ namespace CCA.Services.RepositoryNook.Controllers
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Update failed.");
+                return BadRequest("Update failed. " + exc.ToString());
             }
             try
             {
                 await repositoryService.Update(database, collection, repoObject);
 
-                return ResponseFormatter.ResponseOK(repoObject, "Updated");
+                return Ok( "Updated. " + repoObject.ToString());
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, "Retreiving Update failed. Record may still have been written.");
+                return BadRequest("Retreiving Update failed. Record may still have been written. " + exc.ToString());
             }
 
         }
@@ -159,11 +159,11 @@ namespace CCA.Services.RepositoryNook.Controllers
             {
                 await repositoryService.Delete(database, collection, _id);
 
-                return ResponseFormatter.ResponseOK($"_id: {_id} deleted.");
+                return Ok($"_id: {_id} deleted.");
             }
             catch (Exception exc)
             {
-                return ResponseFormatter.ResponseBadRequest(exc, $"Delete failed for _id: {_id}.");
+                return BadRequest( $"Delete failed for _id: {_id}." + exc.ToString());
             }
 
         }
