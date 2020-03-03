@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+.vs/
+/RepositoryNook/CCA.Services.RepositoryNook/obj
+/RepositoryNook/CCA.Services.RepositoryNook/bin
+/DevOpsGenieService/bin
+/DevOpsGenieService/obj
