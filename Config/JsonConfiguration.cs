@@ -16,7 +16,8 @@ namespace DOG.RepoNook.Config
         {
             var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables();         // allows reading out of the local (not uploaded) launchSettings.json for Docker
             _configuration = configBuilder.Build();
         }
 

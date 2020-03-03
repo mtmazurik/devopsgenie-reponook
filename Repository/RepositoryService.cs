@@ -62,7 +62,7 @@ namespace DOG.RepoNook.Services
                 repoObject.createdDate = DateTime.Now;
             }
 
-            CreateRepositoryTextIndices(repositoryCollection);   //enable auto-indexing feature after re-doing the separation of the key/value pairs for "key" and "tags"
+            //CreateRepositoryTextIndices(repositoryCollection);   //enable auto-indexing feature after re-doing the separation of the key/value pairs for "key" and "tags"
 
             if (repoObject._id == null)                         // user can send in a unique identifier, else we generate a mongo ObjectId (mongo unique id)
             {
@@ -225,8 +225,9 @@ namespace DOG.RepoNook.Services
             return database;
         }
 
-        private void CreateRepositoryTextIndices(IMongoCollection<Repository> collection)   // indempotent; a no-op if index already exists.
+        private void CreateRepositoryTextIndices(IMongoCollection<Repository> collection)   // TODO:  no longer - indempotent; a no-op if index already exists.
         {
+            // TEST and refactor as necessary
             // index: key (primary) 
             var key = Builders<Repository>.IndexKeys.Text(t => t.key);             // the key value, is collections text search field, and is highly queryable
             var options = new CreateIndexOptions
