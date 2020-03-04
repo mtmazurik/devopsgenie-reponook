@@ -1,6 +1,4 @@
-﻿job name:
-  script:
-    - DevOpsGenie RepoNook Service (2nd tier) build
+﻿job name: evOpsGenie RepoNook Service (2nd tier) build
 
 stages:
   - build
