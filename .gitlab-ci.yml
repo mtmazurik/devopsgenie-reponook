@@ -1,4 +1,8 @@
-﻿stages:
+﻿job name:
+  script:
+    - DevOpsGenie RepoNook Service (2nd tier) build
+
+stages:
   - build
 
 build_image:
