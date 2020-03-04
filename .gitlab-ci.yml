@@ -1,4 +1,6 @@
-﻿job name: evOpsGenie RepoNook Service (2nd tier) build
+﻿job: 
+  script:
+    - echo "DevOps Genie RepoNook build (level 2 service)"
 
 stages:
   - build
