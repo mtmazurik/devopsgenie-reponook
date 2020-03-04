@@ -1,6 +1,7 @@
-﻿before_script:
-  - docker info
+﻿stages:
+  - build
 
 build_image:
+  stage: build
   script:
     - docker build -t devopsgenie-reponook:dev .
