@@ -1,11 +1,4 @@
 ﻿job: 
   script:
     - echo "DevOps Genie RepoNook build (level 2 service)"
-
-stages:
-  - build
-
-build_image:
-  stage: build
-  script:
     - docker build -t devopsgenie-reponook:dev .
