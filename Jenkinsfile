@@ -3,7 +3,7 @@ pipeline {
     registry = "https://10.1.1.13:5000"
     dockerImage = ''
   }
-  agent none
+  agent any
   stages {
     stage('reponook') {
       steps {
