@@ -1,4 +1,4 @@
-﻿pipeline {
+pipeline {
   environment {
     registry = "https://10.1.1.13:5000"
     dockerImage = ''
