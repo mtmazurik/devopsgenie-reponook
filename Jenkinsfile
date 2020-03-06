@@ -1,13 +1,13 @@
 ﻿pipeline {
   environment {
-    registry = "tcp://10.1.1.13:5000"
+    registry = "https://10.1.1.13:5000"
     dockerImage = ''
   }
-  agent any
+  agent none
   stages {
-    stage('Cloning devopsgenie-reponook git source code') {
+    stage('reponook') {
       steps {
-        git 'https://github.com/mtmazurik/devopsgenie-reponook.git'
+        git clone 'https://github.com/mtmazurik/devopsgenie-reponook.git'
       }
     }
     stage('Building image') {
@@ -20,15 +20,10 @@
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( 'https://10.1.1.13') {
+          docker.withRegistry( 'https://10.1.1.13:5000') {
             dockerImage.push()
           }
         }
-      }
-    }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:/devopsgenie-reponook:dev"
       }
     }
   }
