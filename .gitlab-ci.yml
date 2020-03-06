@@ -1,4 +1,0 @@
-﻿job: 
-  script:
-    - echo "DevOps Genie RepoNook (2nd-tier svc) - build and insert in local image registry"
-    - docker build -t devopsgenie-reponook:dev .
