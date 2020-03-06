@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('reponook') {
       steps {
-        git clone 'https://github.com/mtmazurik/devopsgenie-reponook.git'
+        git 'https://github.com/mtmazurik/devopsgenie-reponook.git'
       }
     }
     stage('Building image') {
