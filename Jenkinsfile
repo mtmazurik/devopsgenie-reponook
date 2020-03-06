@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "10.1.1.13:5000"
+    registry = "k8s-ubuntu:5000"
     dockerImage = ''
   }
   agent any
@@ -20,7 +20,7 @@ pipeline {
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( 'https://10.1.1.13:5000') {
+          docker.withRegistry( 'https://k8s-ubuntu:5000') {
             dockerImage.push()
           }
         }
