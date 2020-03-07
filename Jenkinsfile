@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "k8s-ubuntu"
+    registry = "mtmazurik"
     dockerImage = ''
   }
   agent any
@@ -13,7 +13,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build registry + "/devopsgenie-reponook:dev" 
+          dockerImage = docker.build registry + "/devopsgenie-reponook" 
         }
       }
     }
