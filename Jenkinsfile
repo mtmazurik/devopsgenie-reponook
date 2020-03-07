@@ -20,7 +20,7 @@ pipeline {
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( 'https://k8s-ubuntu') {
+          docker.withRegistry( 'mtmazurik/devopsgenie-reponook') {
             dockerImage.push()
           }
         }
