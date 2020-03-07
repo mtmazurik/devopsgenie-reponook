@@ -22,7 +22,7 @@ namespace DOG.RepoNook.Services
         private readonly string GENERIC_DB_NAME = "repository-nook-db";
         private readonly string GENERIC_COLLECTION_NAME = "repository";
 
-        public RepositoryService(IJsonConfiguration config)     // ctor
+        public RepositoryService(IJsonConfiguration config)     //  ctor
         {
             _config = config;
         }
