@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "mtmazurik"
+    registry = "mtmazurik/devopsgenie-reponook"
     registryCredential = 'DockerHub'
   }
   agent any
@@ -13,14 +13,14 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build registry + "/devopsgenie-reponook" 
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( 'mtmazurik/devopsgenie-reponook') {
+          docker.withRegistry( '', registryCredential) {
             dockerImage.push()
           }
         }
