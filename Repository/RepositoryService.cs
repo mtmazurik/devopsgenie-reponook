@@ -62,7 +62,7 @@ namespace DOG.RepoNook.Services
                 repoObject.createdDate = DateTime.Now;
             }
 
-            //CreateRepositoryTextIndices(repositoryCollection);   //enable auto-indexing feature after re-doing the separation of the key/value pairs for "key" and "tags"
+            // CreateRepositoryTextIndices(repositoryCollection);   //enable auto-indexing feature after re-doing the separation of the key/value pairs for "key" and "tags"
 
             if (repoObject._id == null)                         // user can send in a unique identifier, else we generate a mongo ObjectId (mongo unique id)
             {
