@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DOG.RepoNook.Models
+namespace DevopsGenie.Reponook.Models
 {
     public class Response : IResponse
     {

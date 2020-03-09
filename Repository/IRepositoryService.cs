@@ -1,8 +1,8 @@
-﻿using DOG.RepoNook.Models;
+﻿using DevopsGenie.Reponook.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DOG.RepoNook.Services
+namespace DevopsGenie.Reponook.Services
 {
     public interface IRepositoryService
     {

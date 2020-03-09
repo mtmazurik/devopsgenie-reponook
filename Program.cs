@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace DOG.RepoNook
+namespace DevopsGenie.Reponook
 {
     public class Program
     {

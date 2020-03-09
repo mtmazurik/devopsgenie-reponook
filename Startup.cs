@@ -7,14 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.Logging;
-using DOG.RepoNook.Config;
-using DOG.RepoNook.Models;
-using DOG.RepoNook.Services;
-using DOG.RepoNook.HelperClasses;
+using DevopsGenie.Reponook.Config;
+using DevopsGenie.Reponook.Models;
+using DevopsGenie.Reponook.Services;
+using DevopsGenie.Reponook.HelperClasses;
 using OpenApi = Swashbuckle.AspNetCore.Swagger;
 using Microsoft.Extensions.Hosting;
 
-namespace DOG.RepoNook
+namespace DevopsGenie.Reponook
 {
     public class Startup
     {

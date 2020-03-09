@@ -18,4 +18,4 @@ RUN dotnet publish "devopsgenie-reponook.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "dog.reponook.dll"]
+ENTRYPOINT ["dotnet", "DevopsGenie.Reponook.dll"]

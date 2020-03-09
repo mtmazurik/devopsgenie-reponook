@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DOG.RepoNook.Models
+namespace DevopsGenie.Reponook.Models
 {
     [BsonIgnoreExtraElements]
     public class Repository

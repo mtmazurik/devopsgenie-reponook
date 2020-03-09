@@ -1,4 +1,4 @@
-﻿namespace DOG.RepoNook.Config
+﻿namespace DevopsGenie.Reponook.Config
 {
     public interface IJsonConfiguration
     {

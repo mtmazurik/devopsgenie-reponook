@@ -3,18 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DOG.RepoNook.Models;
+using DevopsGenie.Reponook.Models;
 using MongoDB.Driver;
 using MongoDB.Bson;
-using DOG.RepoNook.Config;
-using DOG.RepoNook.Exceptions;
+using DevopsGenie.Reponook.Config;
+using DevopsGenie.Reponook.Exceptions;
 using MongoDB.Bson.Serialization;
 using System.Net;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
-namespace DOG.RepoNook.Services
+namespace DevopsGenie.Reponook.Services
 {
     public class RepositoryService : IRepositoryService
     {

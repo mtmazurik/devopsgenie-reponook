@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DOG.RepoNook.Exceptions;
+using DevopsGenie.Reponook.Exceptions;
 
 
-namespace DOG.RepoNook.Config
+namespace DevopsGenie.Reponook.Config
 {
     public class JsonConfiguration : IJsonConfiguration
     {

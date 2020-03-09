@@ -4,9 +4,9 @@ using System.Net;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Authorization;
-using DOG.RepoNook.HelperClasses;
-using DOG.RepoNook.Models;
-using DOG.RepoNook.Services;
+using DevopsGenie.Reponook.HelperClasses;
+using DevopsGenie.Reponook.Models;
+using DevopsGenie.Reponook.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using System.Collections.Generic;
 
-namespace DOG.RepoNook.Controllers
+namespace DevopsGenie.Reponook.Controllers
 {
     [Route("/")]
     public class RepositoryNookController : Controller

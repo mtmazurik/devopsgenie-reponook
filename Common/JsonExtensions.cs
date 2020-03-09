@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DOG.RepoNook.Exceptions;
+using DevopsGenie.Reponook.Exceptions;
 
-namespace DOG.RepoNook.HelperClasses
+namespace DevopsGenie.Reponook.HelperClasses
 {
     public static class JsonExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace DOG.RepoNook.Models
+﻿namespace DevopsGenie.Reponook.Models
 {
     public interface IResponse
     {

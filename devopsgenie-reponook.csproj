@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>dog.reponook</AssemblyName>
+    <AssemblyName>DevopsGenie.Reponook</AssemblyName>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <Version>0.1.0</Version>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
@@ -60,7 +60,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DockerTargetOS>Linux</DockerTargetOS>
     <LangVersion>latest</LangVersion>
-    <StartupObject>DOG.RepoNook.Program</StartupObject>
+    <StartupObject>DevopsGenie.Reponook.Program</StartupObject>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <ApplicationInsightsResourceId>/subscriptions/952dfb7d-08e5-4e85-af0e-1a52239f9f47/resourcegroups/ContainersResourceGroup/providers/microsoft.insights/components/ContainersInsights</ApplicationInsightsResourceId>
@@ -68,5 +68,6 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <NoWin32Manifest>true</NoWin32Manifest>
     <DockerfileContext>.</DockerfileContext>
+    <RootNamespace>DevopsGenie.Reponook</RootNamespace>
   </PropertyGroup>
 </Project>
