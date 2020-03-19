@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dogreponook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dogreponook
+  template:
+    metadata:
+      labels:
+        app: dogreponook
+    spec:
+      containers:
+      - name: dogreponook-pod
+        image: docker.io/mtmazurik/devopsgenie-reponook:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+
