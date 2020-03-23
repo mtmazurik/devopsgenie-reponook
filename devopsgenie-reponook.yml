@@ -19,4 +19,17 @@ spec:
         ports:
         - name: dogrepo-port
           containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /admin/ping
+            port: 80
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /admin/ping
+            port: 80
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+
 
