@@ -19,6 +19,12 @@ spec:
         ports:
         - name: dogrepo-port
           containerPort: 80
+        env:
+        - name: AtlasMongoConnection
+          valueFrom:
+            secretKeyRef:
+              name: db-connection-string1
+              key: atlas-mongo-connection-string
         livenessProbe:
           httpGet:
             path: /admin/ping
