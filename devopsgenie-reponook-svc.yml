@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dogreponook
+  name: dogreponook-svc
   labels:
-    app: dogreponook
+    app: dogreponook-svc
 spec:
   type: LoadBalancer
   ports:
