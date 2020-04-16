@@ -104,6 +104,22 @@ namespace DevopsGenie.Reponook.Services
             }
             return found;
         }
+        public async Task<List<Repository>> QueryByKeyAndTag(string repository, string collection, string key, string tag)
+        {
+            IMongoCollection<Repository> repositoryCollection = ConnectToCollection(repository, collection);
+
+            FilterDefinition<Repository> keyFilter = Builders<Repository>.Filter.Eq(k => k.key, key);
+            FilterDefinition<Repository> tagFilter = Builders<Repository>.Filter.AnyEq("tags", tag);
+            FilterDefinition<Repository> filter = Builders<Repository>.Filter.And(keyFilter, tagFilter);
+
+            var found = await repositoryCollection.Find(filter).ToListAsync();
+
+            if (found is null)
+            {
+                throw new RepoSvcDocumentNotFoundException($"tag: {tag}");
+            }
+            return found;
+        }
         public async Task<List<Repository>> QueryByKey(string repository, string collection, string key)
         {
             IMongoCollection<Repository> repositoryCollection = ConnectToCollection(repository, collection);

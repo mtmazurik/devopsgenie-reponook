@@ -14,6 +14,9 @@ namespace DevopsGenie.Reponook.Models
         [BsonElement("_id")]
         public object _id { get; set; }
         [BsonRequired]
+        [BsonElement("tenant")]
+        public string tenant { get; set; }
+        [BsonRequired]
         [BsonElement("key")]
         public string key { get; set; }
         [BsonElement("tags")]

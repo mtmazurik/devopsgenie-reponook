@@ -19,7 +19,8 @@ namespace DevopsGenie.Reponook.Controllers
     [Route("/")]
     public class RepositoryNookController : Controller
     {
-        [HttpGet]   // GET all databases
+        // GET all databases
+        [HttpGet]   
         public async Task<IActionResult> GetDatabases([FromServices]IRepositoryService repositoryService)
         {
             try
@@ -32,7 +33,8 @@ namespace DevopsGenie.Reponook.Controllers
                 return BadRequest("Get databases failed. " + exc.Message);
             }
         }
-        [HttpGet("{database}")]   // GET all collections
+        // GET all collections
+        [HttpGet("{database}")]   
         public async Task<IActionResult> GetCollections([FromServices]IRepositoryService repositoryService, string database)
         {
             try
@@ -45,7 +47,8 @@ namespace DevopsGenie.Reponook.Controllers
                 return BadRequest("Get collections failed. " + exc.Message);
             }
         }
-        [HttpPost("{database}/{collection}")]  // POST (C)reate Repository object - CRUD operation: Create
+        // POST (C)reate Repository object - CRUD operation: Create
+        [HttpPost("{database}/{collection}")]  
         public async Task<IActionResult> CreateRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, [FromBody]Repository repoObject)
         {
             try
@@ -58,22 +61,8 @@ namespace DevopsGenie.Reponook.Controllers
             }
 
         }
-        [HttpGet("{database}/{collection}/id/{_id}")]   // GET Repository object-by-id (Query by Id)      application should care about query by key or tag (not id) Delete by ID only
-        public async Task<IActionResult> GetRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string _id)
-        {
-            try
-            {
-                Repository found = await repositoryService.Read(_id, database, collection);
-
-                return Ok(found);
-            }
-            catch (Exception exc)
-            {
-                return BadRequest("Read failed." + exc.ToString());
-            }
-
-        }
-        [HttpGet("{database}/{collection}")]   // GET All Repository objects (Query by "*" wildcard operation, or default: all records API call)
+        // GET (R)ead All Repository objects (Query by "*" wildcard operation, or default: all records API call) - CRUD operation: Read (All)
+        [HttpGet("{database}/{collection}")]   
         public async Task<IActionResult> GetAllRepositoryObjects([FromServices]IRepositoryService repositoryService, string database, string collection, string _id)
         {
             try
@@ -88,8 +77,24 @@ namespace DevopsGenie.Reponook.Controllers
             }
 
         }
-        // GET query by key
-        [HttpGet("{database}/{collection}/{key}")]   
+        // GET Repository (Query by Id)      
+        [HttpGet("{database}/{collection}/{_id}")]   
+        public async Task<IActionResult> GetRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string _id)
+        {
+            try
+            {
+                Repository found = await repositoryService.Read(_id, database, collection);
+
+                return Ok(found);
+            }
+            catch (Exception exc)
+            {
+                return BadRequest("Read failed." + exc.ToString());
+            }
+
+        }
+        // GET query by key (Key should be main index, NOT a PRIMARY KEY.no guarantee of uniqueness by reponook service)
+        [HttpGet("{database}/{collection}/key/{key}")]   
         public async Task<IActionResult> QueryByKeyRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string key)
         {
             try

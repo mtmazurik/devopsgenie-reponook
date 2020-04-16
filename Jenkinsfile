@@ -17,12 +17,22 @@ pipeline {
         }
       }
     }
-    stage('Deploy Image') {
+    stage('Deploy image') {
       steps{
         script {
           docker.withRegistry( '', registryCredential) {
             dockerImage.push()
           }
+        }
+      }
+    }
+    stage('New deployment') {
+      steps{
+        script {
+          kubernetesDeploy(
+              kubeconfigId: 'k8s-ubuntu',
+              configs: 'devopsgenie-reponook*.yml'
+          )
         }
       }
     }

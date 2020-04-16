@@ -5,8 +5,15 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7631C5BC-B886-4703-82EF-85269AB4C4AA}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
 		.gitignore = .gitignore
+		appsettings.json = appsettings.json
+		devopsgenie-reponook-svc.yml = devopsgenie-reponook-svc.yml
 		devopsgenie-reponook.yml = devopsgenie-reponook.yml
+		Dockerfile = Dockerfile
+		Jenkinsfile = Jenkinsfile
+		Properties\launchSettings.json = Properties\launchSettings.json
+		secrets-devopsgenie-repositorynook.yml = secrets-devopsgenie-repositorynook.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devopsgenie-reponook", "devopsgenie-reponook.csproj", "{540B72DB-D294-435A-9720-A011878352F5}"
