@@ -93,7 +93,28 @@ namespace DevopsGenie.Reponook.Controllers
             }
 
         }
-        // GET query by key (Key should be main index, NOT a PRIMARY KEY.no guarantee of uniqueness by reponook service)
+        // GET by key AND tag 
+        [HttpGet("{database}/{collection}/key/{key}/tag/{tag}")]
+        public async Task<IActionResult> QueryByKeyRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string key, string tag)
+        {
+            try
+            {
+                List<Repository> found = await repositoryService.QueryByKeyAndTag(database, collection, key, tag);
+
+                if (found.Count == 0)
+                {
+                    return NotFound(string.Format("check query string argument key={0} and/or tag={1}", key, tag));
+                }
+
+                return Ok(found);
+            }
+            catch (Exception exc)
+            {
+                return BadRequest("Query exception." + exc.ToString());
+            }
+
+        }
+        // GET by key   (Note about Key:  the Key should be main index, NOT neccesarily a PRIMARY KEY.  App has to guarantee uniqueness if needed
         [HttpGet("{database}/{collection}/key/{key}")]   
         public async Task<IActionResult> QueryByKeyRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string key)
         {
@@ -114,7 +135,8 @@ namespace DevopsGenie.Reponook.Controllers
             }
 
         }
-        [HttpGet("{database}/{collection}/tag/{tag}")]   // query by tagName = tagValue
+        // GET by tagName = tagValue
+        [HttpGet("{database}/{collection}/tag/{tag}")]   
         public async Task<IActionResult> QueryByTagRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string tag)
         {
             try
@@ -134,7 +156,8 @@ namespace DevopsGenie.Reponook.Controllers
             }
 
         }
-        [HttpPut("{database}/{collection}")]  // update
+        // PUT update Repository object - uses ID in the Repository Object passed
+        [HttpPut("{database}/{collection}")]  
         public async Task<IActionResult> UpdateRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, [FromBody]Repository repoObject)
         {
             try
@@ -157,7 +180,8 @@ namespace DevopsGenie.Reponook.Controllers
             }
 
         }
-        [HttpDelete("{database}/{collection}/{_id}")]    // delete
+        // DELETE   by ID passed
+        [HttpDelete("{database}/{collection}/{_id}")]    
         public async Task<IActionResult> DeleteRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string _id, [FromBody]Repository repoObject)
         {
             try
