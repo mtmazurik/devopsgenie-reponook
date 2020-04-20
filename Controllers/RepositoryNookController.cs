@@ -94,16 +94,16 @@ namespace DevopsGenie.Reponook.Controllers
 
         }
         // GET by key AND tag 
-        [HttpGet("{database}/{collection}/key/{key}/tag/{tag}")]
-        public async Task<IActionResult> QueryByKeyRepositoryObject([FromServices]IRepositoryService repositoryService, string database, string collection, string key, string tag)
+        [HttpGet("{tenant}/{database}/{collection}/key/{key}/tag/{tag}")]
+        public async Task<IActionResult> QueryByKeyRepositoryObject([FromServices]IRepositoryService repositoryService, string tenant, string database, string collection, string key, string tag)
         {
             try
             {
-                List<Repository> found = await repositoryService.QueryByKeyAndTag(database, collection, key, tag);
+                List<Repository> found = await repositoryService.QueryByKeyAndTag(tenant, database, collection, key, tag);
 
                 if (found.Count == 0)
                 {
-                    return NotFound(string.Format("check query string argument key={0} and/or tag={1}", key, tag));
+                    return NotFound(string.Format("check tenant {0} or query string argument key={1} and/or tag={2}", tenant, key, tag));
                 }
 
                 return Ok(found);

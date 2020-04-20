@@ -11,7 +11,7 @@ namespace DevopsGenie.Reponook.Services
         Task<Repository> Create(string repository, string collection, Repository repoObject);
         Task<Repository> Read(string _id, string repository, string collection);
         Task<List<Repository>> ReadAll(string repository, string collection);
-        Task<List<Repository>> QueryByKeyAndTag(string repository, string collection, string key, string tag);
+        Task<List<Repository>> QueryByKeyAndTag(string tenant, string repository, string collection, string key, string tag);
         Task<List<Repository>> QueryByKey(string repository, string collection, string key);
         Task<List<Repository>> QueryByTag(string repository, string collection, string tag);
         Task Update(string repository, string collection, Repository repoObject);

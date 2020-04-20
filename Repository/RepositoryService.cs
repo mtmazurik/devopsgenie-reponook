@@ -104,13 +104,14 @@ namespace DevopsGenie.Reponook.Services
             }
             return found;
         }
-        public async Task<List<Repository>> QueryByKeyAndTag(string repository, string collection, string key, string tag)
+        public async Task<List<Repository>> QueryByKeyAndTag(string tenant, string repository, string collection, string key, string tag)
         {
             IMongoCollection<Repository> repositoryCollection = ConnectToCollection(repository, collection);
 
+            FilterDefinition<Repository> tenantFilter = Builders<Repository>.Filter.Eq(t => t.tenant, tenant);
             FilterDefinition<Repository> keyFilter = Builders<Repository>.Filter.Eq(k => k.key, key);
             FilterDefinition<Repository> tagFilter = Builders<Repository>.Filter.AnyEq("tags", tag);
-            FilterDefinition<Repository> filter = Builders<Repository>.Filter.And(keyFilter, tagFilter);
+            FilterDefinition<Repository> filter = Builders<Repository>.Filter.And(tenantFilter, keyFilter, tagFilter);
 
             var found = await repositoryCollection.Find(filter).ToListAsync();
 
