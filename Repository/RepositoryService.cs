@@ -111,9 +111,9 @@ namespace DevopsGenie.Reponook.Services
             FilterDefinition<Repository> tenantFilter = Builders<Repository>.Filter.Eq(t => t.tenant, tenant);
             FilterDefinition<Repository> keyFilter = Builders<Repository>.Filter.Eq(k => k.key, key);
             FilterDefinition<Repository> tagFilter = Builders<Repository>.Filter.AnyEq("tags", tag);
-            FilterDefinition<Repository> filter = Builders<Repository>.Filter.And(tenantFilter, keyFilter, tagFilter);
+            FilterDefinition<Repository> compositeFilter = tenantFilter & keyFilter & tagFilter;
 
-            var found = await repositoryCollection.Find(filter).ToListAsync();
+            var found = await repositoryCollection.Find(compositeFilter).ToListAsync();
 
             if (found is null)
             {
