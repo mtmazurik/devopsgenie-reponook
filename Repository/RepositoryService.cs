@@ -108,14 +108,13 @@ namespace DevopsGenie.Reponook.Services
         {
             IMongoCollection<Repository> repositoryCollection = ConnectToCollection(repository, collection);
 
-
             FilterDefinitionBuilder<Repository> builder = Builders<Repository>.Filter;
 
             FilterDefinition<Repository> compositeFilter = builder.Eq(t => t.tenant, tenant)
-                                                         & builder.Eq(k => k.key, key);
+                                                         & builder.Eq(k => k.key, key)
+                                                         & builder.AnyEq("tags", tag);
 
-            List<Repository> returnedList = await repositoryCollection.Find(compositeFilter).ToListAsync();
-            List<Repository> found = returnedList.Where(t=> t.tags.Contains(tag)).ToList<Repository>();     // look at returned list, by single tag
+            var found = await repositoryCollection.Find(compositeFilter).ToListAsync();
 
             if (found is null)
             {
